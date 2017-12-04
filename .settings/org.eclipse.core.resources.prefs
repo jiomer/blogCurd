@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/com/blog/controller/BlogController.java=gbk
+encoding//src/com/blog/controller/DiaryController.java=gbk
+encoding//src/com/blog/controller/FormController.java=gbk
+encoding//src/com/blog/controller/UserController.java=gbk
+encoding//src/com/blog/dao/BlogMapper.java=gbk
+encoding//src/com/blog/dao/DiaryMapper.java=gbk
+encoding//src/com/blog/dao/UserMapper.java=gbk
+encoding//src/com/blog/service=gbk
+encoding//src/com/blog/service/BlogService.java=gbk
+encoding//src/com/blog/service/DiaryService.java=gbk
+encoding//src/com/blog/service/UserService.java=gbk
+encoding//src/com/blog/test/TestMybatisGenerator.java=gbk

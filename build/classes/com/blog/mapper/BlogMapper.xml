@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.dao.BlogMapper">
+<!-- 
+//增加文章
+	void writeBlog(Blog blog);
+	//查找全部文章
+	List<Blog> selectAllBlog();
+	//根据id查询
+	List<Blog> selectBlogById(int blogid);
+	//根据id查询
+	Blog findById(int id);
+	//删除文章
+	void deleteBlogById(int blogid);
+	//更新文章
+	boolean updateBlog(Blog blog);
+ -->
+
+    <!-- 自定义结果集 -->
+     <resultMap type="com.blog.model.Blog" id="blogResultMap">
+        <id property="blogid" column="blogid" />
+        <result property="blogtitle" column="blogtitle" />
+        <result property="article" column="article" />
+        <result property="time" column="time" />
+    </resultMap>
+    <insert id="writeBlog" parameterType="com.blog.model.Blog"  useGeneratedKeys="true" keyProperty="blogid" >
+    	insert into blog (article,blogtitle,time)
+    	values(#{article},#{blogtitle},#{time})
+    </insert>
+    <select id="selectAllBlog" parameterType="com.blog.model.Blog" resultMap="blogResultMap">
+        select *
+        from blog
+    </select>
+    <select id="selectBlogById" parameterType="com.blog.model.Blog" resultMap="blogResultMap">
+        select *
+        from blog where blogid=#{blogid}
+    </select>
+    <select id="findById" parameterType="int" resultType="com.blog.model.Blog">
+    	select * from blog where blogid=#{blogid}
+    </select>
+    <delete id="deleteBlogById">
+    	delete from blog where blogid=#{blogid}
+    </delete>
+    <update id="updateBlog" parameterType="com.blog.model.Blog">
+    	 update blog set blogtitle=#{blogtitle},article=#{article} where blogid=#{blogid} 
+    </update>
+</mapper>
