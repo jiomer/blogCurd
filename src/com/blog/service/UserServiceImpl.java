@@ -1,6 +1,7 @@
 package com.blog.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,24 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		List<User> findAllList = userMapper.findAll();
 		return findAllList;
+	}
+
+	@Override
+	public User selectUserByUsername(String userName) {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserByUsername(userName);
+	}
+
+	@Override
+	public Set<String> selectRolesByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return userMapper.selectRolesByUserName(userName);
+	}
+
+	@Override
+	public Set<String> selectPermissionByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return userMapper.selectPermissionByUserName(userName);
 	}
 
 }

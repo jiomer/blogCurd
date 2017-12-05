@@ -56,4 +56,5 @@
     </bean>
     <!-- 启用支持 annotation 注解方式事务管理 -->
     <tx:annotation-driven transaction-manager="txManager" />
+    
 </beans>

@@ -7,11 +7,11 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>about页面</title>
-		<link type="image/vnd.microsoft.icon" href="${APP_PATH }/img/favicon.png" rel="shortcut icon">
-		<link rel="stylesheet" href="${APP_PATH }/css/style.css"/>
-		<script type="text/javascript" src="${APP_PATH }/js/top.min.js"></script>
-		<script type="text/javascript" src="${APP_PATH }/js/top.js"></script>
-		<script type="text/javascript" src="${APP_PATH }/js/jquery.1.4.2.min.js"></script>
+		<link type="image/vnd.microsoft.icon" href="${APP_PATH }/static/img/favicon.png" rel="shortcut icon">
+		<link rel="stylesheet" href="${APP_PATH }/static/css/style.css"/>
+		<script type="text/javascript" src="${APP_PATH }/static/js/top.min.js"></script>
+		<script type="text/javascript" src="${APP_PATH }/static/js/top.js"></script>
+		<script type="text/javascript" src="${APP_PATH }/static/js/jquery.1.4.2.min.js"></script>
 	</head>
 	<body>
 		<div class="bodycontent">
@@ -30,7 +30,7 @@
 								<li><a href="${APP_PATH }">首页</a></li>
 								<li><a href="${APP_PATH }/selectAllDiary">日记</a></li>
 								<li><a href="${APP_PATH }/about.jsp">关于</a></li>
-								<li><a href="${APP_PATH }/login.jsp">登录</a></li>
+								<li><a href="${APP_PATH }/loginUser">登录</a></li>
 								<li><a href="${APP_PATH }/register.jsp">注册</a></li>
 							</ul>
 						</nav>

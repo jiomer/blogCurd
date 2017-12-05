@@ -7,11 +7,11 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>日记</title>
-		<link type="image/vnd.microsoft.icon" href="${APP_PATH }/img/favicon.png" rel="shortcut icon">
-		<link rel="stylesheet" href="${APP_PATH }/css/style.css"/>
-		<script type="text/javascript" src="${APP_PATH }/js/top.min.js"></script>
-		<script type="text/javascript" src="${APP_PATH }/js/top.js"></script>
-		<script type="text/javascript" src="${APP_PATH }/js/jquery.1.4.2.min.js"></script>
+		<link type="image/vnd.microsoft.icon" href="${APP_PATH }/static/img/favicon.png" rel="shortcut icon">
+		<link rel="stylesheet" href="${APP_PATH }/static/css/style.css"/>
+		<script type="text/javascript" src="${APP_PATH }/static/js/top.min.js"></script>
+		<script type="text/javascript" src="${APP_PATH }/static/js/top.js"></script>
+		<script type="text/javascript" src="${APP_PATH }/static/js/jquery.1.4.2.min.js"></script>
 	</head>
 	<body>
 		<div class="bodycontent">

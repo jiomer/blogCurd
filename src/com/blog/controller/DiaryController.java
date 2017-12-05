@@ -29,7 +29,7 @@ public class DiaryController {
 	 * @param diary
 	 * @return
 	 */
-	@RequestMapping("writediary")
+	@RequestMapping("/admin/writediary")
 	public String writediary(Diary diary,RedirectAttributes attributes){
 		Date currentTime = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -37,7 +37,7 @@ public class DiaryController {
 		diary.setTime(dateString);
 		this.diaryService.writediary(diary);
 		attributes.addFlashAttribute("msg", "添加日记成功");
-		return "redirect:admindiary";
+		return "redirect:/admin/admindiary";
 	}
 	/**
 	 * 查询所有心情
@@ -50,8 +50,8 @@ public class DiaryController {
 			Model model){
 		try {
 			PageHelper.startPage(pn, 10);
-			List<Diary> diarys =  diaryService.selectAllDiary();
 			PageHelper.orderBy("diaryid desc");//设置为倒叙
+			List<Diary> diarys =  diaryService.selectAllDiary();
 			PageInfo page = new PageInfo(diarys);
 			model.addAttribute("diarys", page);
 			return "saylist";
@@ -66,7 +66,7 @@ public class DiaryController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/admindiary")
+	@RequestMapping("/admin/admindiary")
 	public String admindiary(
 			@RequestParam(value="pn",defaultValue="1")Integer pn,
 			Model model){
@@ -88,14 +88,14 @@ public class DiaryController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/deleteDiaryById")
+	@RequestMapping("/admin/deleteDiaryById")
 	public String deleteDiaryById(HttpServletRequest request,RedirectAttributes attributes){
 		try {
 			String id = request.getParameter("diaryid");
 			int diaryid = Integer.parseInt(id);
 			this.diaryService.deleteDiaryById(diaryid);
 			attributes.addFlashAttribute("msg", "删除日记成功");
-			return "redirect:admindiary";
+			return "redirect:/admin/admindiary";
 		} catch (Exception e) {
 			return null;	
 		}

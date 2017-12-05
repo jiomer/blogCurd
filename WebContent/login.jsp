@@ -8,10 +8,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="image/vnd.microsoft.icon" href="${APP_PATH }/img/favicon.png" rel="shortcut icon">
+    <link type="image/vnd.microsoft.icon" href="${APP_PATH }/static/img/favicon.png" rel="shortcut icon">
     <title>登录</title>
-    <script src="${APP_PATH }/js/jquery.1.4.2.min.js"></script>
-	<link href="${APP_PATH }/css/logo.css" type="text/css" rel="stylesheet"/>
+    <script src="${APP_PATH }/static/js/jquery.1.4.2.min.js"></script>
+	<link href="${APP_PATH }/static/css/logo.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
 <div class="wrapper">
@@ -19,7 +19,7 @@
     <div class="froyo-frame login-body">
         <div class="admin-face">
             <div class="face-img">
-            <img src="${APP_PATH}/img/gravatar.jpg" alt="logo">
+            <img src="${APP_PATH}/static/img/gravatar.jpg" alt="logo">
         </div>
         </div>
         <h1 class="admin-login-tittle">「从现在开始，为每一天写下一篇记录」</h1>
@@ -31,7 +31,7 @@
                 <div class="admin-button"><a id="login-button" href="${APP_PATH}">返回首页</a></div>
             </form>
         </div>
-        <h1 class="admin-login-tittle">${requestScope.msg}</h1>
+        <h1 class="admin-login-tittle">${msg}</h1>
     </div>
 
 </div>

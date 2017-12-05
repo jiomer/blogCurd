@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="adminHeader.jsp" %>
 				<!-- 导入css/js -->
-				<script type="text/javascript" charset="utf-8" src="${APP_PATH }/ckeditor/ckeditor.js"></script>
+				<script type="text/javascript" charset="utf-8" src="${APP_PATH }/static/ckeditor/ckeditor.js"></script>
 				<section class="blockGroup">
 					<h1>撰写新文章</h1>
 					<form action="updateBlog" method="post">

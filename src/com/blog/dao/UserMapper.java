@@ -1,6 +1,7 @@
 package com.blog.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -20,5 +21,11 @@ public interface UserMapper {
     User findById(int id);  
     //查询所有用户
     List<User> findAll();  
+    //根据用户名查找用户
+    User selectUserByUsername(String userName);
+    //根据用户名查找角色
+    Set<String> selectRolesByUserName(String userName);
+    //根据用户名查找权限
+    Set<String> selectPermissionByUserName(String userName);
 	
 }

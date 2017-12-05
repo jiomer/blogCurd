@@ -23,8 +23,10 @@
 			                        <td>${diarysInfo.diary}</td>  
 			                        <td>${diarysInfo.time}</td>  
 			                        <td>  
+			                        	<shiro:hasRole name="admin">
 			                            <!-- <a href="${APP_PATH}/getBlog?id=${diarysInfo.diaryid}">编辑</a> -->  
-			                            <a href="${APP_PATH}/deleteDiaryById?diaryid=${diarysInfo.diaryid }">删除</a>  
+			                            <a href="${APP_PATH}/admin/deleteDiaryById?diaryid=${diarysInfo.diaryid }">删除</a>  
+			                        	</shiro:hasRole>
 			                        </td>  
 			                    </tr>
 								</c:forEach>
@@ -42,10 +44,10 @@
 					<div class="col-md-6">
 						<nav aria-label="Page navigation">
 						  <ul class="pagination">
-						  	<li><a href="${APP_PATH}/admindiary?pn=1">首页</a></li>
+						  	<li><a href="${APP_PATH}/admin/admindiary?pn=1">首页</a></li>
 						  	<c:if test="${diarys.hasPreviousPage}">
 							    <li>
-							      <a href="${APP_PATH}/admindiary?pn=${diarys.pageNum-1}" aria-label="Previous">
+							      <a href="${APP_PATH}/admin/admindiary?pn=${diarys.pageNum-1}" aria-label="Previous">
 							        <span aria-hidden="true">&laquo;</span>
 							      </a>
 							    </li>
@@ -55,17 +57,17 @@
 						    		<li class="active"><a>${navigatepageNums }</a></li>
 						    	</c:if>
 						    	<c:if test="${navigatepageNums!=diarys.pageNum }">
-						    		<li><a href="${APP_PATH}/admindiary?pn=${navigatepageNums}">${navigatepageNums }</a></li>
+						    		<li><a href="${APP_PATH}/admin/admindiary?pn=${navigatepageNums}">${navigatepageNums }</a></li>
 						    	</c:if>
 						    </c:forEach>
 						    <c:if test="${diarys.hasNextPage}">
 							    <li>
-							      <a href="${APP_PATH}/admindiary?pn=${diarys.pageNum+1}" aria-label="Next">
+							      <a href="${APP_PATH}/admin/admindiary?pn=${diarys.pageNum+1}" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </li>
 						    </c:if>
-						    <li><a href="${APP_PATH}/admindiary?pn=${diarys.pages }">末页</a></li>
+						    <li><a href="${APP_PATH}/admin/admindiary?pn=${diarys.pages }">末页</a></li>
 						  </ul>
 						</nav>			
 					</div>					

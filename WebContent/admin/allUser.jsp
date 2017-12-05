@@ -23,8 +23,10 @@
 			                        <td>${user.id}</td>  
 			                        <td>${user.username}</td>  
 			                        <td>  
-			                            <a href="${APP_PATH}/getUser?id=${user.id}">编辑</a>  
-			                            <a href="${APP_PATH}/deleteUser?id=${user.id }">删除</a>  
+			                        	<shiro:hasRole name="admin">
+			                            <a href="${APP_PATH}/admin/getUser?id=${user.id}">编辑</a>  
+			                            <a href="${APP_PATH}/admin/deleteUser?id=${user.id }">删除</a>  
+			                        	</shiro:hasRole>
 			                        </td>  
 			                    </tr>
 								</c:forEach>
@@ -43,10 +45,10 @@
 					<div class="col-md-6">
 						<nav aria-label="Page navigation">
 						  <ul class="pagination">
-						  	<li><a href="${APP_PATH}/getAllUser?pn=1">首页</a></li>
+						  	<li><a href="${APP_PATH}/admin/getAllUser?pn=1">首页</a></li>
 						  	<c:if test="${userList.hasPreviousPage}">
 							    <li>
-							      <a href="${APP_PATH}/getAllUser?pn=${userList.pageNum-1}" aria-label="Previous">
+							      <a href="${APP_PATH}/admin/getAllUser?pn=${userList.pageNum-1}" aria-label="Previous">
 							        <span aria-hidden="true">&laquo;</span>
 							      </a>
 							    </li>
@@ -56,17 +58,17 @@
 						    		<li class="active"><a>${navigatepageNums }</a></li>
 						    	</c:if>
 						    	<c:if test="${navigatepageNums!=userList.pageNum }">
-						    		<li><a href="${APP_PATH}/getAllUser?pn=${navigatepageNums}">${navigatepageNums }</a></li>
+						    		<li><a href="${APP_PATH}/admin/getAllUser?pn=${navigatepageNums}">${navigatepageNums }</a></li>
 						    	</c:if>
 						    </c:forEach>
 						    <c:if test="${userList.hasNextPage}">
 							    <li>
-							      <a href="${APP_PATH}/getAllUser?pn=${userList.pageNum+1}" aria-label="Next">
+							      <a href="${APP_PATH}/admin/getAllUser?pn=${userList.pageNum+1}" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </li>
 						    </c:if>
-						    <li><a href="${APP_PATH}/getAllUser?pn=${userList.pages }">末页</a></li>
+						    <li><a href="${APP_PATH}/admin/getAllUser?pn=${userList.pages }">末页</a></li>
 						  </ul>
 						</nav>			
 					</div>					

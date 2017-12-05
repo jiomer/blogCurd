@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script type="text/javascript" src="${APP_PATH }/js/jquery.1.4.2.min.js"></script>
+<script type="text/javascript" src="${APP_PATH }/static/js/jquery.1.4.2.min.js"></script>
 <title>index.jsp</title>
 <script>
 window.onload = function(){ //设置当页面加载时执行

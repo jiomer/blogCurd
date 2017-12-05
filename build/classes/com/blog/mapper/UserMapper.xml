@@ -17,6 +17,24 @@
     //查询所有用户
     List<User> findAll(); 
 	 -->
+	<!-- shiro权限专用 -->
+    <resultMap type="com.blog.model.User" id="UserResultMap">
+    	<id column="id" property="id" jdbcType="INTEGER"/>
+    	<result column="username" property="username" jdbcType="VARCHAR"/>
+    	<result column="password" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectUserByUsername" parameterType="String" resultMap="UserResultMap">
+    	select * from user where username = #{username}
+    </select>
+    <select id="selectRolesByUserName" parameterType="String" resultType="String">
+    	select r.roleName from user u,role r 
+ 		where u.roleId=r.id and u.username=#{username}
+    </select>
+    <select id="selectPermissionByUserName" parameterType="String" resultType="String">
+    	select p.permissionName from user u,role r,permission p 
+ 		where u.roleId=r.id and p.roleId=r.id and u.userName=#{username}
+    </select>
+	
 	
 	<insert id="addUser" parameterType="com.blog.model.User">
 		insert into user(username,password) values(#{username},#{password})

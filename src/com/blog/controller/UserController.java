@@ -5,6 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +26,19 @@ import com.github.pagehelper.PageInfo;
 public class UserController {
 	@Autowired
 	UserService userService;
+	
+	@RequestMapping("/loginUser")
+	public String loginForm(RedirectAttributes attributes){
+		Subject subject = SecurityUtils.getSubject();
+		if(subject.isAuthenticated()==false){
+			return "login";
+		}
+//		String username= (String) subject.getPrincipal();
+		attributes.addFlashAttribute("msg", "登录成功");
+//		attributes.addFlashAttribute("username",username);
+		return "redirect:/success";
+	}
+	
 	
 	/**
 	 * 用户注册
@@ -45,16 +63,32 @@ public class UserController {
 	@RequestMapping("/login")
 	public String login(@PathParam("username") String username,
 			@PathParam("password") String password,
-			Model model){
+			Model model,
+			RedirectAttributes attributes){
 		System.out.println("用户登录时调用:"+username+"--"+password);
-		User user = userService.login(username, password);
-		if(user!=null){
-			model.addAttribute("msg", "登录成功");
-			model.addAttribute("username",username);
-			return "/admin/adminWelcome";
+		
+		Subject subject = SecurityUtils.getSubject();
+		System.out.println(subject.isAuthenticated());
+		if(subject.isAuthenticated()==false){
+			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			try {
+				subject.login(token);
+				System.out.println("登录成功");
+				Session session = subject.getSession();
+	            // 输出session
+	            System.out.println("sessionId:" + session.getId() + ";sessionHost:" + session.getHost());
+	            attributes.addFlashAttribute("msg", "登录成功");
+	            
+//	            attributes.addFlashAttribute("username",username);
+				return "redirect:/success";
+			} catch (AuthenticationException ae) {
+				// TODO: handle exception
+				ae.printStackTrace();
+				model.addAttribute("msg", "用户名或密码错误");
+				return "login";
+			}
 		}else{
-			model.addAttribute("msg", "「账号或者密码错误」");
-			return "login";
+			return "/success";
 		}
 	}
 	/**
@@ -63,7 +97,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/getAllUser")
+	@RequestMapping("/admin/getAllUser")
 	public String getAllUser(
 			@RequestParam(value="pn",defaultValue="1")Integer pn,
 			Model model){
@@ -80,7 +114,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/updateUser")
+	@RequestMapping("/admin/updateUser")
 	public String updateUser(User user,
 			Model model,
 			RedirectAttributes attributes){
@@ -90,7 +124,7 @@ public class UserController {
 			model.addAttribute("user", user);
 //			model.addAttribute("msg", "修改成功");
 			attributes.addFlashAttribute("msg", "修改成功");
-			return "redirect:getAllUser";
+			return "redirect:/admin/getAllUser";
 		}else {
 			model.addAttribute("msg", "修改出错");
 			return "error";
@@ -103,7 +137,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/getUser")
+	@RequestMapping("/admin/getUser")
 	public String getUser(int id,HttpServletRequest request,Model model){
 		User user = userService.findById((id));
 		request.setAttribute("user", user);
@@ -116,15 +150,32 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/deleteUser")
+	@RequestMapping("/admin/deleteUser")
 	public String deleteUser(int id,RedirectAttributes attributes){
 		if(userService.delete(id)){
 //			model.addAttribute("msg", "删除成功");
 			attributes.addFlashAttribute("msg", "删除成功");
-			return "redirect:getAllUser";
+			return "redirect:/admin/getAllUser";
 //			return "/admin/allUser";
 		}else{
 			return "error";
 		}
+	}
+	@RequestMapping("/success")
+	public String success(Model model){
+		return "/admin/adminWelcome";
+	}
+	@RequestMapping("/unauthorized")
+	public String unauthorized(){
+		return "unauthorized";
+	}
+	@RequestMapping("/loginout")
+	public String loginout(){
+		Subject subject = SecurityUtils.getSubject();
+		if(subject.isAuthenticated()){
+			subject.logout();
+			System.out.println("登出成功");
+		}
+		return "redirect:login.jsp";
 	}
 }	

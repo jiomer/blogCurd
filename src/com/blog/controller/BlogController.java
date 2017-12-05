@@ -35,7 +35,7 @@ public class BlogController {
 		 * @param blog
 		 * @return
 		 */
-		@RequestMapping("/writeBlog")
+		@RequestMapping("/admin/writeBlog")
 		public String writeBlog(Blog blog,RedirectAttributes attributes){
 					//获取当前日期
 					Date currentTime = new Date();
@@ -45,7 +45,7 @@ public class BlogController {
 					blog.setTime(dateString);
 					this.blogService.writeBlog(blog);
 					attributes.addFlashAttribute("msg", "添加文章成功");
-					return "redirect:adminblog";
+					return "redirect:/admin/adminblog";
 		}
 		
 		/**
@@ -100,7 +100,7 @@ public class BlogController {
 		 * @param model
 		 * @return
 		 */
-		@RequestMapping("/adminblog")
+		@RequestMapping("/admin/adminblog")
 		public String adminblog(
 				@RequestParam(value="pn",defaultValue="1")Integer pn,
 				Model model){
@@ -121,7 +121,7 @@ public class BlogController {
 		 * @param request
 		 * @return
 		 */
-		@RequestMapping("/deleteBlogById")
+		@RequestMapping("/admin/deleteBlogById")
 		public String deleteBlogById(HttpServletRequest request,RedirectAttributes attributes){
 			try {
 				String id = request.getParameter("blogid");
@@ -129,7 +129,7 @@ public class BlogController {
 				//调用删除
 				this.blogService.deleteBlogById(blogid);
 				attributes.addFlashAttribute("msg", "删除文章成功");
-				return "redirect:adminblog";
+				return "redirect:/admin/adminblog";
 			} catch (Exception e) {
 				return null;	
 			}
@@ -141,7 +141,7 @@ public class BlogController {
 		 * @param request
 		 * @return
 		 */
-		@RequestMapping("/updateBlog")
+		@RequestMapping("/admin/updateBlog")
 		public String updateBlog(Blog blog,Model model,
 				HttpServletRequest request,
 				RedirectAttributes attributes){
@@ -151,7 +151,7 @@ public class BlogController {
 				model.addAttribute("blog", blog);
 //				model.addAttribute("msg", "修改成功");
 				attributes.addFlashAttribute("msg", "修改文章成功");
-				return "redirect:adminblog";
+				return "redirect:/admin/adminblog";
 			}
 			attributes.addAttribute("msg", "修改文章出错");
 			return "error";
@@ -163,7 +163,7 @@ public class BlogController {
 		 * @param model
 		 * @return
 		 */
-		@RequestMapping("/getBlog")
+		@RequestMapping("/admin/getBlog")
 		public String getBlog(int id,HttpServletRequest request,Model model){
 			Blog blog = blogService.findById(id);
 			request.setAttribute("blog", blog);
