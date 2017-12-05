@@ -1,3 +1,6 @@
-/spring_shiro.xml
+/applicationContext.xml
 /com
+/generator-config.xml
+/mybatis-config.xml
+/spring-mvc.xml
 /spring-shiro.xml

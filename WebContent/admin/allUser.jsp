@@ -5,7 +5,6 @@
 				<!-- bootstrap表格 -->
 				<div class="container">
 					<h1>${requestScope.msg}</h1>
-					<a href="${APP_PATH}/getAllUser">点击刷新</a>
 					<div class="row">
 						<div class="col-md-22">
 							<table class="table table-hover">
