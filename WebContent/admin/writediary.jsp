@@ -5,7 +5,7 @@
 				<script type="text/javascript" charset="utf-8" src="${APP_PATH }/static/ckeditor/ckeditor.js"></script>
 				<section class="blockGroup">
 					<h1>撰写日记</h1>
-					<form action="writediary" method="post">
+					<form action="${APP_PATH}/admin/writediary" method="post">
 					<input type="hidden"  id="diary" name="diary"/>
 					<textarea id="diary1" name="diary1">Hello World!</textarea>
 					

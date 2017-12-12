@@ -16,6 +16,7 @@
 		<!-- Bootstrap文件 -->
 		<link rel="stylesheet" href="${APP_PATH}/static/bootstrap/css/bootstrap.min.css" >
 		<script type="text/javascript" src="${APP_PATH}/static/bootstrap/js/bootstrap.min.js"></script>
+		<!-- 
 		<script type="text/javascript">  
 		    function del(id){  
 		        $.get("${APP_PATH}/deleteUser?id=" + id,function(data){  
@@ -28,6 +29,7 @@
 		        });  
 		    }  
 		</script> 
+		 -->
 	</head>
 	<body>
 		<div class="bodycontent">
@@ -50,6 +52,7 @@
 								<shiro:hasPermission name="admin:*">
 								<li><a href="${APP_PATH }/admin/admindiary">管理日记</a></li>
 								<li><a href="${APP_PATH }/admin/getAllUser">管理用户</a></li>
+								<li><a href="${APP_PATH }/admin/adminlink">管理链接</a></li>
 								</shiro:hasPermission>
 								<li><a href="${APP_PATH }/loginout">登出</a></li>
 							</ul>

@@ -16,8 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blog.model.Blog;
 import com.blog.model.Diary;
+import com.blog.model.Link;
 import com.blog.service.BlogService;
 import com.blog.service.DiaryService;
+import com.blog.service.LinkService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -29,6 +31,8 @@ import com.github.pagehelper.PageInfo;
 public class BlogController {
 	@Autowired
 	BlogService blogService;
+	@Autowired
+	LinkService linkService;
 		
 		/**
 		 * 存储博客信息
@@ -64,7 +68,9 @@ public class BlogController {
 				PageHelper.orderBy("blogid desc");//设置为倒叙
 				List<Blog> blogs =blogService.selectAllBlog();
 				PageInfo page = new PageInfo(blogs);
+				List<Link> links = linkService.findAll();
 				model.addAttribute("pageInfo", page);
+				model.addAttribute("linkInfo", links);
 				return "blogindex";
 			} catch (Exception e) {
 				System.out.println(e);
@@ -79,15 +85,12 @@ public class BlogController {
 		 * @return
 		 */
 		@RequestMapping("/selectBlogById")
-		public String selectBlogById(HttpServletRequest request){
+		public String selectBlogById(@RequestParam("id") Integer blogid,Model model){
 			try {
-				//获取id并转化类型
-				String id = request.getParameter("blogid");
-				int blogid = Integer.parseInt(id);
 				List<Blog> blogs = new ArrayList<Blog>();
 				blogs =  this.blogService.selectBlogById(blogid);
 				//将查询结果返回
-				request.setAttribute("blog", blogs.get(0));
+				model.addAttribute("blog", blogs.get(0));
 				return "page";
 			} catch (Exception e) {
 				System.out.println(e);
@@ -122,10 +125,12 @@ public class BlogController {
 		 * @return
 		 */
 		@RequestMapping("/admin/deleteBlogById")
-		public String deleteBlogById(HttpServletRequest request,RedirectAttributes attributes){
+		public String deleteBlogById(RedirectAttributes attributes,
+				@RequestParam(value="blogid")Integer blogid
+				){
 			try {
-				String id = request.getParameter("blogid");
-				int blogid = Integer.parseInt(id);
+//				String id = request.getParameter("blogid");
+//				int blogid = Integer.parseInt(id);
 				//调用删除
 				this.blogService.deleteBlogById(blogid);
 				attributes.addFlashAttribute("msg", "删除文章成功");
@@ -164,7 +169,7 @@ public class BlogController {
 		 * @return
 		 */
 		@RequestMapping("/admin/getBlog")
-		public String getBlog(int id,HttpServletRequest request,Model model){
+		public String getBlog(@RequestParam("id")int id,HttpServletRequest request,Model model){
 			Blog blog = blogService.findById(id);
 			request.setAttribute("blog", blog);
 			model.addAttribute("blog", blog);

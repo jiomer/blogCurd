@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.dao.LinkMapper">
+<!-- 
+	//增加友情链接
+	void addLink(Link link);
+	//删除友情链接
+	boolean deleteLink(int linkid);
+	//修改友情链接
+	boolean updateLink(Link link);
+	//查找所有友情链接
+	List<Link> findAll();
+	//根据id查询link
+	Link findById(int linkid);
+ -->
+
+    <!-- 自定义结果集 -->
+     <resultMap type="com.blog.model.Link" id="linkResultMap">
+        <id property="linkid" column="linkid" />
+        <result property="linkname" column="linkName" />
+        <result property="linkurl" column="linkUrl" />
+    </resultMap>
+    <insert id="addLink" parameterType="com.blog.model.Link"  useGeneratedKeys="true" keyProperty="linkid" >
+    	insert into link (linkName,linkUrl)
+    	values(#{linkname},#{linkurl})
+    </insert>
+    <select id="findAll" parameterType="com.blog.model.Link" resultMap="linkResultMap">
+        select *
+        from link
+    </select>
+    <select id="findById" parameterType="int" resultType="com.blog.model.Link">
+    	select * from link where linkid=#{linkid}
+    </select>
+    <delete id="deleteLink">
+    	delete from link where linkid=#{linkid}
+    </delete>
+    <update id="updateLink" parameterType="com.blog.model.Link">
+    	 update link set linkName=#{linkname},linkUrl=#{linkurl} where linkid=#{linkid} 
+    </update>
+</mapper>

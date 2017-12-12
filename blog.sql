@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-12-06 16:16:20
+Date: 2017-12-13 00:03:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `blog` (
   `article` varchar(10000) DEFAULT NULL,
   `time` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`blogid`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of blog
@@ -42,16 +42,11 @@ INSERT INTO `blog` VALUES ('19', 'test', 'test', '2017-11-05');
 INSERT INTO `blog` VALUES ('20', 'test', 'test', '2017-11-05');
 INSERT INTO `blog` VALUES ('21', 'test', 'test', '2017-11-05');
 INSERT INTO `blog` VALUES ('25', 'Hello World!-update', '<p>Hello World!-update</p>\r\n', '2017-11-15');
-INSERT INTO `blog` VALUES ('26', 'yali', '<p>ss</p>\r\n', '2017-11-15');
-INSERT INTO `blog` VALUES ('29', 'yali', '<p>Hello World!</p>\r\n', '2017-11-15');
-INSERT INTO `blog` VALUES ('32', 'yali', '<p>Hello World!</p>\r\n', '2017-11-15');
-INSERT INTO `blog` VALUES ('33', 'yali', '<p>Hello World!</p>\r\n', '2017-11-15');
 INSERT INTO `blog` VALUES ('34', 'ss', '<p>ss</p>\r\n', '2017-11-15');
 INSERT INTO `blog` VALUES ('35', '代码', '<p><!--?xml version=\"1.0\" encoding=\"UTF-8\"?--><br />\r\n&nbsp; &nbsp; sss<br />\r\n&nbsp; &nbsp; <!-- 配置数据源 <br />\r\n    <bean id=\"dataSource\"<br />\r\n        class=\"org.springframework.jdbc.datasource.DriverManagerDataSource\"><br />\r\n        <property name=\"driverClassName\" value=\"com.mysql.jdbc.Driver\" /><br />\r\n        <property name=\"url\" value=\"jdbc:mysql://localhost:3306/blog?useUnicode=true&amp;characterEncoding=UTF-8\" /><br />\r\n        <property name=\"username\" value=\"root\" /><br />\r\n        <property name=\"password\" value=\"root\" /><br />\r\n    </bean> --><br />\r\n&nbsp; &nbsp; <!-- Druid连接池 --><br />\r\n&nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; <!-- 基本属性 url、user、password --><br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp;&nbsp; &nbsp;<br />\r\n&nbsp;&nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; <!-- MyBatis 的 SqlSession 的工厂，并引用数据源，扫描 MyBatis 的配置文件 --><br />\r\n&nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; <!-- 别名 --><br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; <!-- 指定mybatis全局配置文件的位置 --><br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; <!-- 指定mybatis，mapper文件的位置 --><br />\r\n&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<br />\r\n&nbsp; &nbsp;</p>\r\n\r\n<p>&nbsp; &nbsp; <!-- MyBatis 自动扫描加载 Sql 映射文件/接口 --> &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; <!-- JDBC 事务管理器 --><br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;<br />\r\n&nbsp; &nbsp;<br />\r\n&nbsp; &nbsp; <!-- 启用支持 annotation 注解方式事务管理 --><br />\r\n&nbsp; &nbsp;</p>\r\n', '2017-11-27');
-INSERT INTO `blog` VALUES ('36', 'yy', '<p>Hello World!</p>\r\n', '2017-12-05');
 INSERT INTO `blog` VALUES ('37', '2317', '<p>Hello World!</p>\r\n', '2017-12-05');
-INSERT INTO `blog` VALUES ('38', 'asaa', '<p>Hello World!</p>\r\n', '2017-12-05');
-INSERT INTO `blog` VALUES ('39', '22222', '<p>Hello World!</p>\r\n', '2017-12-05');
+INSERT INTO `blog` VALUES ('38', '2121', '<p>Hello World!</p>\r\n', '2017-12-05');
+INSERT INTO `blog` VALUES ('40', 'ojbk', '<p>Hello World!</p>\r\n', '2017-12-12');
 
 -- ----------------------------
 -- Table structure for diary
@@ -62,7 +57,7 @@ CREATE TABLE `diary` (
   `diary` varchar(10000) DEFAULT NULL,
   `time` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`diaryid`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of diary
@@ -90,6 +85,27 @@ INSERT INTO `diary` VALUES ('37', 'World!', '2017-11-12');
 INSERT INTO `diary` VALUES ('49', '我爱炸鸡', '2017-12-05');
 INSERT INTO `diary` VALUES ('50', '有新功能啦', '2017-12-05');
 INSERT INTO `diary` VALUES ('51', 'Hello World!111', '2017-12-06');
+INSERT INTO `diary` VALUES ('52', '记录一下，今天更新了link的功能', '2017-12-12');
+
+-- ----------------------------
+-- Table structure for link
+-- ----------------------------
+DROP TABLE IF EXISTS `link`;
+CREATE TABLE `link` (
+  `linkid` int(11) NOT NULL AUTO_INCREMENT,
+  `linkName` varchar(255) DEFAULT NULL,
+  `linkUrl` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`linkid`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of link
+-- ----------------------------
+INSERT INTO `link` VALUES ('12', '更新后', 'http://baidu.com');
+INSERT INTO `link` VALUES ('10', '记忆角落', 'http://199604.com');
+INSERT INTO `link` VALUES ('13', '测试', 'http://199604.com');
+INSERT INTO `link` VALUES ('14', '记忆角落', 'http://199604.com');
+INSERT INTO `link` VALUES ('15', 'demo', 'http://199604.com');
 
 -- ----------------------------
 -- Table structure for permission
@@ -146,4 +162,4 @@ CREATE TABLE `user` (
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'admin', '1');
 INSERT INTO `user` VALUES ('3', 'user', 'user', '2');
-INSERT INTO `user` VALUES ('14', 'test1', 'test1', '2');
+INSERT INTO `user` VALUES ('14', 'test', 'test', '2');

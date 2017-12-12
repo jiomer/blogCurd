@@ -5,7 +5,7 @@
 				<script type="text/javascript" charset="utf-8" src="${APP_PATH }/static/ckeditor/ckeditor.js"></script>
 				<section class="blockGroup">
 					<h1>撰写新文章</h1>
-					<form action="updateBlog" method="post">
+					<form action="${APP_PATH}/admin/updateBlog" method="post">
 					<input type="hidden" name="blogid" value="${blog.blogid }"/>
 					<p>标题 ：<input type="text" name="blogtitle" style="width: 24%;height:25px;" value="${blog.blogtitle}"/></p> 
 					<textarea id="article" name="article" >${blog.article}</textarea>

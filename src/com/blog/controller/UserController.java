@@ -139,7 +139,7 @@ public class UserController {
 	 */
 	@RequestMapping("/admin/getUser")
 	public String getUser(int id,HttpServletRequest request,Model model){
-		User user = userService.findById((id));
+		User user = userService.findById(id);
 		request.setAttribute("user", user);
 		model.addAttribute("user", user);
 		return "/admin/editUser";

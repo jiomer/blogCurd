@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	 <!-- start shiro -->
+	 <!-- 自定义的realm -->
+	 <bean id="shiroRealm" class="com.blog.realm.ShiroRealm"></bean>
+	<!-- 安全策划管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+         <property name="realm" ref="shiroRealm"></property>
+    </bean>
+	<!-- ehcache.xml缓存 
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/> 
+    </bean> 
+	-->
+	<!-- 必须要有这样的实例，用来管理在spring容器当中的shiro常见的对象 
+		配置 LifecycleBeanPostProcessor. 
+		可以自定的来调用配置在 Spring IOC 容器中 shiro bean 的生命周期方法. 
+	-->            
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!-- 启用shiro注解
+    	但必须在配置了 LifecycleBeanPostProcessor 之后才可以使用.
+     -->     
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <!-- 网络方面 -->
+    <bean id="secureRemoteInvocationExecutor" class="org.apache.shiro.spring.remoting.SecureRemoteInvocationExecutor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <!-- shiro过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    	<!-- shiro的核心安全接口，属性是必须的 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 身份验证失败，则跳转到登录页面 -->
+        <property name="loginUrl" value="/index.jsp"/>
+        <!-- 身份验证成功，则跳转到success页面 -->
+        <property name="successUrl" value="/success"/>
+        <!-- 权限验证失败，跳转到指定页面 -->
+        <property name="unauthorizedUrl" value="/unauthorized"/>
+        <!-- filter具体配置 -->
+        <property name="filterChainDefinitions">
+            <value>
+            	/admin/** = authc
+                /** = anon
+            </value>
+        </property>
+    </bean>
+	<!-- shiro end -->
+
+</beans>

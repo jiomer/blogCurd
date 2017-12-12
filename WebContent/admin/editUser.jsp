@@ -6,7 +6,7 @@
 				<p>
 					带<span>*</span>为必填项,已用<span>*</span>标注,未满18岁请监护人帮忙完成注册！
 				</p>
-					<form action="updateUser" method="post" >
+					<form action="${APP_PATH}/admin/updateUser" method="post" >
 					  <input type="hidden" name="id" value="${user.id }"/>
 					  <div class="form-group">
 					    <label for="username">您的登录名<span>*</span></label>
