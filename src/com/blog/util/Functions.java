@@ -37,12 +37,12 @@ public class Functions {
         String avatar = "https://s.gravatar.com/avatar/"+emailMd5+"?s=32";
         return avatar;
     }
-	public static void main(String[] args) {
-//		String emailMd5 = emailToMd5("admin@199604.com");
-//		System.out.println(emailMd5);//162d8d081d380691c5279df2bbef4152
-//		System.out.println(emailMd5.equals("162d8d081d380691c5279df2bbef4152"));//true
-		String gravatarImg = getGravatar("admin@199604.com");
-		System.out.println(gravatarImg);
-		//输出https://s.gravatar.com/avatar/162d8d081d380691c5279df2bbef4152?s=32
-	}
+//	public static void main(String[] args) {
+////		String emailMd5 = emailToMd5("admin@199604.com");
+////		System.out.println(emailMd5);//162d8d081d380691c5279df2bbef4152
+////		System.out.println(emailMd5.equals("162d8d081d380691c5279df2bbef4152"));//true
+//		String gravatarImg = getGravatar("admin@199604.com");
+//		System.out.println(gravatarImg);
+//		//输出https://s.gravatar.com/avatar/162d8d081d380691c5279df2bbef4152?s=32
+//	}
 }

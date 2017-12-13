@@ -4,6 +4,8 @@ public class User {
 	private int id;
 	private String username;
 	private String password;
+	private String email;
+	private String gravatarImg;
 	private int roleid;
 	
 	public int getRoleid() {
@@ -29,5 +31,17 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getGravatarImg() {
+		return gravatarImg;
+	}
+	public void setGravatarImg(String gravatarImg) {
+		this.gravatarImg = gravatarImg;
 	}
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blog.model.User;
 import com.blog.service.UserService;
+import com.blog.util.Functions;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -51,6 +52,8 @@ public class UserController {
 		System.out.println("用户注册调用"+user.getUsername()+user.getPassword());
 		List<User> userList = userService.selectUserByUsernameOfReg(user.getUsername());
 		if(userList.size()==0){
+			String gravatarImg = Functions.getGravatar(user.getEmail());
+			user.setGravatarImg(gravatarImg);
 			userService.addUser(user);
 			model.addAttribute("msg","注册成功");
 			return "registSuccess";
@@ -124,10 +127,12 @@ public class UserController {
 	public String updateUser(User user,
 			Model model,
 			RedirectAttributes attributes){
+		String gravatarImg = Functions.getGravatar(user.getEmail());
+		user.setGravatarImg(gravatarImg);
 		if(userService.update(user)){
-			user = userService.findById(user.getId());
+//			user = userService.findById(user.getId());
 			//request.setAttribute("user", user);
-			model.addAttribute("user", user);
+//			model.addAttribute("user", user);
 //			model.addAttribute("msg", "修改成功");
 			attributes.addFlashAttribute("msg", "修改成功");
 			return "redirect:/admin/getAllUser";

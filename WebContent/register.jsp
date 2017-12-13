@@ -27,6 +27,7 @@
             <form class="form" action="regist" method="post" autocomplete="off">
                 <div class="admin-name"><input name="username" type="text" placeholder="用户名"></div>
                 <div class="admin-password"><input name="password" type="password" placeholder="密码"></div>
+                <div class="admin-email"><input name="email" type="email" placeholder="邮箱"></div>
                 <div class="admin-button"><button type="submit" id="login-button">注册</button></div>
             </form>
         </div>
