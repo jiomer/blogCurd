@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-12-13 00:03:06
+Date: 2017-12-14 00:20:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -151,15 +151,37 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(16) NOT NULL,
   `password` varchar(16) NOT NULL,
-  `roleId` int(11) DEFAULT '2',
+  `email` varchar(255) DEFAULT NULL,
+  `gravatarImg` varchar(255) DEFAULT NULL,
+  `roleId` int(11) NOT NULL DEFAULT '2',
   PRIMARY KEY (`id`),
   KEY `roleId` (`roleId`),
   CONSTRAINT `roleId` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'admin', '1');
-INSERT INTO `user` VALUES ('3', 'user', 'user', '2');
-INSERT INTO `user` VALUES ('14', 'test', 'test', '2');
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', 'admin@199604.com', 'https://s.gravatar.com/avatar/162d8d081d380691c5279df2bbef4152?s=32', '1');
+INSERT INTO `user` VALUES ('17', 'user', 'user', 'admin@199604.com', 'https://s.gravatar.com/avatar/162d8d081d380691c5279df2bbef4152?s=32', '2');
+INSERT INTO `user` VALUES ('20', 'test', 'test', 'post@199604.com', 'https://s.gravatar.com/avatar/b1242a3996a2638ec152ccf31556934b?s=32', '2');
+
+-- ----------------------------
+-- Table structure for userinfo
+-- ----------------------------
+DROP TABLE IF EXISTS `userinfo`;
+CREATE TABLE `userinfo` (
+  `userInfoId` int(11) NOT NULL,
+  `userInfoName` varchar(255) DEFAULT NULL,
+  `userInfoAge` varchar(255) DEFAULT NULL,
+  `userInfoEmail` varchar(255) DEFAULT NULL,
+  `userInfoUrl` varchar(255) DEFAULT NULL,
+  `userInfoAbout` varchar(255) DEFAULT NULL,
+  `userInfoImg` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`userInfoId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of userinfo
+-- ----------------------------
+INSERT INTO `userinfo` VALUES ('1', 'xx', '21', 'admin@199604.com', 'http://199604.com', 'xx', 'xx');
