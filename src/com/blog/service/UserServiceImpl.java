@@ -70,4 +70,12 @@ public class UserServiceImpl implements UserService{
 		return userMapper.selectPermissionByUserName(userName);
 	}
 
+	@Override
+	public List<User> selectUserByUsernameOfReg(String userName) {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserByUsernameOfReg(userName);
+	}
+
+
+
 }

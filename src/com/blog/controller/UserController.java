@@ -49,9 +49,15 @@ public class UserController {
 	@RequestMapping("/regist")
 	public String addUser(User user,Model model){
 		System.out.println("用户注册调用"+user.getUsername()+user.getPassword());
-		userService.addUser(user);
-		model.addAttribute("msg","注册成功");
-		return "registSuccess";
+		List<User> userList = userService.selectUserByUsernameOfReg(user.getUsername());
+		if(userList.size()==0){
+			userService.addUser(user);
+			model.addAttribute("msg","注册成功");
+			return "registSuccess";
+		}else{
+			model.addAttribute("msg","用户名存在，注册失败");
+			return "register";
+		}
 	}
 	/**
 	 * 验证用户登录

@@ -30,6 +30,7 @@
                 <div class="admin-button"><button type="submit" id="login-button">注册</button></div>
             </form>
         </div>
+        <h1 class="admin-login-tittle">${msg}</h1>
     </div>
 
 </div>

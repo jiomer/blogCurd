@@ -23,6 +23,7 @@ public interface UserMapper {
     List<User> findAll();  
     //根据用户名查找用户
     User selectUserByUsername(String userName);
+    List<User> selectUserByUsernameOfReg(String userName);
     //根据用户名查找角色
     Set<String> selectRolesByUserName(String userName);
     //根据用户名查找权限

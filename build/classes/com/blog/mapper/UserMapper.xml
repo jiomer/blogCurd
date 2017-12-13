@@ -35,7 +35,9 @@
  		where u.roleId=r.id and p.roleId=r.id and u.userName=#{username}
     </select>
 	
-	
+	<select id="selectUserByUsernameOfReg" parameterType="String" resultType="com.blog.model.User">    
+        select * from user where username = #{username}    
+    </select> 
 	<insert id="addUser" parameterType="com.blog.model.User">
 		insert into user(username,password) values(#{username},#{password})
 	</insert>
