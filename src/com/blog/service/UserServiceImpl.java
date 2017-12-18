@@ -76,6 +76,15 @@ public class UserServiceImpl implements UserService{
 		return userMapper.selectUserByUsernameOfReg(userName);
 	}
 
+	@Override
+	public User findByCode(String code) {
+		// TODO Auto-generated method stub
+		return userMapper.findByCode(code);
+	}
+
+
+
+
 
 
 }

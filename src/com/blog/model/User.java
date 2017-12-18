@@ -6,6 +6,8 @@ public class User {
 	private String password;
 	private String email;
 	private String gravatarImg;
+	private int state;
+	private String code;
 	private int roleid;
 	
 	public int getRoleid() {
@@ -14,6 +16,7 @@ public class User {
 	public void setRoleid(int roleid) {
 		this.roleid = roleid;
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -44,4 +47,17 @@ public class User {
 	public void setGravatarImg(String gravatarImg) {
 		this.gravatarImg = gravatarImg;
 	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 }

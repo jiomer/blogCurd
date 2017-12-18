@@ -52,16 +52,48 @@ public class UserController {
 		System.out.println("用户注册调用"+user.getUsername()+user.getPassword());
 		List<User> userList = userService.selectUserByUsernameOfReg(user.getUsername());
 		if(userList.size()==0){
+			//设置Gravatar图片链接
 			String gravatarImg = Functions.getGravatar(user.getEmail());
+			//设置激活码code
+			String code = Functions.getCode()+Functions.getCode();
 			user.setGravatarImg(gravatarImg);
+			user.setCode(code);
+			user.setState(0);//默认为0,,激活为1
 			userService.addUser(user);
-			model.addAttribute("msg","注册成功");
+			Functions.sendMail(user.getEmail(), code);
+			model.addAttribute("msg","注册成功,激活邮件已经发送到您的邮箱请及时激活!");
 			return "registSuccess";
 		}else{
 			model.addAttribute("msg","用户名存在，注册失败");
 			return "register";
 		}
 	}
+	/**
+	 * 用户账号激活
+	 * @param code
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/activate")
+	public String activateUser(@RequestParam("code") String code,
+			Model model){
+		User user =userService.findByCode(code);
+		if(user!=null){
+		    user.setState(1);
+		    user.setCode(null);
+		    if(userService.update(user)){
+		    	model.addAttribute("msg","账号激活成功!");
+		    	return "registSuccess";
+		    }else{
+		    	model.addAttribute("msg","账号激活失败!");
+		    	return "registSuccess";
+		    }
+		}else{
+			model.addAttribute("msg","账号激活码不存在!");
+	    	return "registSuccess";
+		}
+	}
+	
 	/**
 	 * 验证用户登录
 	 * @param username
@@ -75,29 +107,33 @@ public class UserController {
 			Model model,
 			RedirectAttributes attributes){
 		System.out.println("用户登录时调用:"+username+"--"+password);
-		
-		Subject subject = SecurityUtils.getSubject();
-		System.out.println(subject.isAuthenticated());
-		if(subject.isAuthenticated()==false){
-			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-			try {
-				subject.login(token);
-				System.out.println("登录成功");
-				Session session = subject.getSession();
-	            // 输出session
-	            System.out.println("sessionId:" + session.getId() + ";sessionHost:" + session.getHost());
-	            attributes.addFlashAttribute("msg", "登录成功");
-	            
-//	            attributes.addFlashAttribute("username",username);
-				return "redirect:/success";
-			} catch (AuthenticationException ae) {
-				// TODO: handle exception
-				ae.printStackTrace();
-				model.addAttribute("msg", "用户名或密码错误");
-				return "login";
+		User user = userService.selectUserByUsername(username);
+		if(user.getState()==1){
+			Subject subject = SecurityUtils.getSubject();
+			if(subject.isAuthenticated()==false){
+				UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+				try {
+					subject.login(token);
+					System.out.println("登录成功");
+					Session session = subject.getSession();
+		            // 输出session
+		            System.out.println("sessionId:" + session.getId() + ";sessionHost:" + session.getHost());
+		            attributes.addFlashAttribute("msg", "登录成功");
+		            
+	//	            attributes.addFlashAttribute("username",username);
+					return "redirect:/success";
+				} catch (AuthenticationException ae) {
+					// TODO: handle exception
+					ae.printStackTrace();
+					model.addAttribute("msg", "用户名或密码错误");
+					return "login";
+				}
+			}else{
+				return "/success";
 			}
 		}else{
-			return "/success";
+			model.addAttribute("msg", "账号未激活");
+			return "login";
 		}
 	}
 	/**

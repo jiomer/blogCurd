@@ -19,6 +19,8 @@ public interface UserMapper {
     boolean delete(int id);    
     //根据id查询
     User findById(int id);  
+    //根据code查询user
+    User findByCode(String code);
     //查询所有用户
     List<User> findAll();  
     //根据用户名查找用户
@@ -28,5 +30,4 @@ public interface UserMapper {
     Set<String> selectRolesByUserName(String userName);
     //根据用户名查找权限
     Set<String> selectPermissionByUserName(String userName);
-	
 }
