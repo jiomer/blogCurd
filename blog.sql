@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-12-18 18:36:30
+Date: 2017-12-18 18:42:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,3 +47,143 @@ INSERT INTO `blog` VALUES ('35', '代码', '<p><!--?xml version=\"1.0\" encoding
 INSERT INTO `blog` VALUES ('37', '2317', '<p>Hello World!</p>\r\n', '2017-12-05');
 INSERT INTO `blog` VALUES ('38', '2121', '<p>Hello World!</p>\r\n', '2017-12-05');
 INSERT INTO `blog` VALUES ('40', 'ojbk', '<p>Hello World!</p>\r\n', '2017-12-12');
+
+-- ----------------------------
+-- Table structure for diary
+-- ----------------------------
+DROP TABLE IF EXISTS `diary`;
+CREATE TABLE `diary` (
+  `diaryid` int(20) NOT NULL AUTO_INCREMENT,
+  `diary` varchar(10000) DEFAULT NULL,
+  `time` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`diaryid`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of diary
+-- ----------------------------
+INSERT INTO `diary` VALUES ('1', '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试', '2017-11-05');
+INSERT INTO `diary` VALUES ('2', '心情1', '2017-11-05');
+INSERT INTO `diary` VALUES ('3', '心情1', '2017-11-05');
+INSERT INTO `diary` VALUES ('4', '心情1', '2017-11-05');
+INSERT INTO `diary` VALUES ('5', '心情1', '2017-11-05');
+INSERT INTO `diary` VALUES ('6', '\r\n心情1', '2017-11-05');
+INSERT INTO `diary` VALUES ('14', 'Hello World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('15', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('16', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('17', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('18', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('19', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('20', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('21', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('22', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('23', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('24', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('35', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('36', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('37', 'World!', '2017-11-12');
+INSERT INTO `diary` VALUES ('49', '我爱炸鸡', '2017-12-05');
+INSERT INTO `diary` VALUES ('50', '有新功能啦', '2017-12-05');
+INSERT INTO `diary` VALUES ('51', 'Hello World!111', '2017-12-06');
+INSERT INTO `diary` VALUES ('52', '记录一下，今天更新了link的功能', '2017-12-12');
+
+-- ----------------------------
+-- Table structure for link
+-- ----------------------------
+DROP TABLE IF EXISTS `link`;
+CREATE TABLE `link` (
+  `linkid` int(11) NOT NULL AUTO_INCREMENT,
+  `linkName` varchar(255) DEFAULT NULL,
+  `linkUrl` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`linkid`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of link
+-- ----------------------------
+INSERT INTO `link` VALUES ('12', '更新后', 'http://baidu.com');
+INSERT INTO `link` VALUES ('10', '记忆角落', 'http://199604.com');
+INSERT INTO `link` VALUES ('13', '测试', 'http://199604.com');
+INSERT INTO `link` VALUES ('14', '记忆角落', 'http://199604.com');
+INSERT INTO `link` VALUES ('15', 'demo', 'http://199604.com');
+
+-- ----------------------------
+-- Table structure for permission
+-- ----------------------------
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE `permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `permissionName` varchar(255) DEFAULT NULL,
+  `roleId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `permission_roleId` (`roleId`),
+  CONSTRAINT `permission_roleId` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of permission
+-- ----------------------------
+INSERT INTO `permission` VALUES ('1', 'admin:*', '1');
+INSERT INTO `permission` VALUES ('2', 'user:*', '2');
+
+-- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `roleName` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `role` (`roleName`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('1', 'admin');
+INSERT INTO `role` VALUES ('2', 'user');
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(16) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `gravatarImg` varchar(255) DEFAULT NULL,
+  `state` int(11) DEFAULT '0',
+  `code` varchar(64) DEFAULT NULL,
+  `roleId` int(11) NOT NULL DEFAULT '2',
+  PRIMARY KEY (`id`),
+  KEY `roleId` (`roleId`),
+  CONSTRAINT `roleId` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', 'admin@199604.com', 'https://s.gravatar.com/avatar/162d8d081d380691c5279df2bbef4152?s=32', '1', null, '1');
+INSERT INTO `user` VALUES ('17', 'user', 'user', 'admin@199604.com', 'https://s.gravatar.com/avatar/162d8d081d380691c5279df2bbef4152?s=32', '1', null, '2');
+INSERT INTO `user` VALUES ('20', 'test', 'test', 'post@199604.com', 'https://s.gravatar.com/avatar/b1242a3996a2638ec152ccf31556934b?s=32', '1', null, '2');
+
+-- ----------------------------
+-- Table structure for userinfo
+-- ----------------------------
+DROP TABLE IF EXISTS `userinfo`;
+CREATE TABLE `userinfo` (
+  `userInfoId` int(11) NOT NULL,
+  `userInfoName` varchar(255) DEFAULT NULL,
+  `userInfoAge` varchar(255) DEFAULT NULL,
+  `userInfoEmail` varchar(255) DEFAULT NULL,
+  `userInfoUrl` varchar(255) DEFAULT NULL,
+  `userInfoAbout` varchar(255) DEFAULT NULL,
+  `userInfoImg` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`userInfoId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of userinfo
+-- ----------------------------
+INSERT INTO `userinfo` VALUES ('1', 'xx', '21', 'admin@199604.com', 'http://199604.com', 'xx', 'xx');
