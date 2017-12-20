@@ -28,15 +28,18 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	/**
+	 * 检测是否已经登录
+	 * @param attributes
+	 * @return
+	 */
 	@RequestMapping("/loginUser")
 	public String loginForm(RedirectAttributes attributes){
 		Subject subject = SecurityUtils.getSubject();
 		if(subject.isAuthenticated()==false){
 			return "login";
 		}
-//		String username= (String) subject.getPrincipal();
 		attributes.addFlashAttribute("msg", "登录成功");
-//		attributes.addFlashAttribute("username",username);
 		return "redirect:/success";
 	}
 	
@@ -178,6 +181,20 @@ public class UserController {
 		}
 	}
 	/**
+	 * 根据用户名查询单个用户
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping("getInfoUser")
+	public String getUserInfo(@RequestParam("name") String username,
+			HttpServletRequest request,Model model){
+		User user = userService.selectUserByUsername(username);
+		request.setAttribute("user", user);
+		model.addAttribute("user", user);
+		return "/admin/infoUser";
+	}
+	
+	/**
 	 * 根据id查询单个用户
 	 * @param id
 	 * @param request
@@ -185,7 +202,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/admin/getUser")
-	public String getUser(int id,HttpServletRequest request,Model model){
+	public String getUser(@RequestParam("id") int id,HttpServletRequest request,Model model){
 		User user = userService.findById(id);
 		request.setAttribute("user", user);
 		model.addAttribute("user", user);

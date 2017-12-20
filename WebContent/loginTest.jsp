@@ -33,7 +33,7 @@
 								<li><a href="${APP_PATH }">首页</a></li>
 								<li><a href="${APP_PATH }/selectAllDiary">日记</a></li>
 								<li><a href="${APP_PATH }/about.jsp">关于</a></li>
-								<li><a href="${APP_PATH }/login.jsp">登录</a></li>
+								<li><a href="${APP_PATH }/loginUser">登录</a></li>
 								<li><a href="${APP_PATH }/register.jsp">注册</a></li>
 							</ul>
 						</nav>

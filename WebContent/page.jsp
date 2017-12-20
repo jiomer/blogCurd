@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath());%>  
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@
 								<li><a href="${APP_PATH }">首页</a></li>
 								<li><a href="${APP_PATH }/selectAllDiary">日记</a></li>
 								<li><a href="${APP_PATH }/about.jsp">关于</a></li>
-								<li><a href="${APP_PATH }/login.jsp">登录</a></li>
+								<li><a href="${APP_PATH }/loginUser">登录</a></li>
 								<li><a href="${APP_PATH }/register.jsp">注册</a></li>
 							</ul>
 						</nav>
@@ -40,17 +41,16 @@
 				<section class="blockGroup">
 					<h2 class="s_title"><c:out value="${blog.blogtitle}" /></h2>
 					<div class="views">
-						<time>发布于:<c:out value="${blog.time}" /></time>- <c:out value="${blog.blogid}" /> 次检阅
+						<time>发布于:<c:out value="${blog.time}" /></time>- 
+						<c:out value="${blog.blogid}" /> 次检阅
+						<shiro:hasRole name="admin">
+							<a href="http://127.0.0.1:8080/Blog/admin/getBlog?id=<c:out value="${blog.blogid}" />">编辑</a>
+						</shiro:hasRole>
 					</div>
 				<article class="single">
-				<input type="hidden"  id="blogarticle"  value="${blog.article}"> 
-				<script type="text/javascript">  
-			        $(function() {  
-			            var x =document.getElementById('blogarticle').value;
-			            $("#text").html(x);
-			       		 });  
-			    </script> 
-    			<div id="text"></div>
+	    			<div id="text">
+	    				${blog.article}
+	    			</div>
 				</article>
 				</section>
 			</div>

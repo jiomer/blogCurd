@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="adminHeader.jsp" %>
-				<div class="container">
-				<h3 style="text-align: center;padding: 30px 0;">编辑用户</h3>
+<%@ include file="adminHeader.jsp"%>
+<%@ include file="adminLeftSider.jsp"%>
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h3 style="text-align: center;padding: 30px 0;">用户信息</h3>
 				<p>
 					带<span style="color: red">*</span>为必填项,已用<span>*</span>标注,未满18岁请监护人帮忙完成注册！
 				</p>
@@ -23,4 +24,4 @@
 					  <button type="submit" class="btn btn-default" style="margin-left: 500px;">Submit</button>
 					</form>
 				</div>
-<%@include file="../footer.jsp" %>
+<%@ include file="adminFooter.jsp"%>

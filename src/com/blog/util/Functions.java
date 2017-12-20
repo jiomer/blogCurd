@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMessage;
 
 public class Functions {
 	
-	public static String emailToMd5(String message){
+	public static String getMd5(String message){
 		String temp = "";
 		try{
 			MessageDigest md5Digest = MessageDigest.getInstance("MD5");
@@ -27,7 +27,6 @@ public class Functions {
 		}
 		return temp;
 	}
-	
 	public static String convertByteToHexString(byte[] bytes){
 		String result = "";
 		for(int i=0;i<bytes.length;i++){
@@ -44,9 +43,9 @@ public class Functions {
 	
 	//根据email获取gravatar头像
     public static String getGravatar(String email) {
-        String emailMd5 = emailToMd5(email);
+        String emailMd5 = getMd5(email);
         //设置图片大小32px
-        String avatar = "https://s.gravatar.com/avatar/"+emailMd5+"?s=32";
+        String avatar = "https://s.gravatar.com/avatar/"+emailMd5;
         return avatar;
     }
     //发送邮件

@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="adminHeader.jsp" %>
-				<section class="blockGroup">
-					<h1>修改友链</h1>
+<%@ include file="adminHeader.jsp"%>
+<%@ include file="adminLeftSider.jsp"%>
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<h2 class="sub-header">添加友链</h2>
 					<form class="form-horizontal" style="padding-left: 100px;" action="${APP_PATH}/admin/updateLink" method="post">
 					  <input type="hidden" name="linkid" value="${link.linkid}">
 					  <div class="form-group">
@@ -23,6 +24,5 @@
 					    </div>
 					  </div>
 					</form>
-				</section>
-			</div>
-<%@include file="../footer.jsp" %>
+				</div>	
+<%@ include file="adminFooter.jsp"%>
