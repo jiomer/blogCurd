@@ -3,7 +3,9 @@ package com.blog.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blog.model.Blog;
@@ -55,13 +58,12 @@ public class BlogController {
 		/**
 		 * 查找全博客，用于主页显示
 		 * @param pn
-		 * @param model
 		 * @return
 		 */
+		@ResponseBody
 		@RequestMapping("/selectAllBlog")
-		public String selectAllBlog2(
-				@RequestParam(value="pn",defaultValue="1")Integer pn,
-				Model model
+		public Map selectAllBlog2(
+				@RequestParam(value="pn",defaultValue="1") int pn
 				){
 			try {
 				PageHelper.startPage(pn, 8);
@@ -69,9 +71,10 @@ public class BlogController {
 				List<Blog> blogs =blogService.selectAllBlog();
 				PageInfo page = new PageInfo(blogs);
 				List<Link> links = linkService.findAll();
-				model.addAttribute("pageInfo", page);
-				model.addAttribute("linkInfo", links);
-				return "blogindex";
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("links", links);
+				map.put("page", page);
+				return map;
 			} catch (Exception e) {
 				System.out.println(e);
 				return null;

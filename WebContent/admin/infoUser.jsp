@@ -12,6 +12,9 @@
 						<hr />
 						<p>您的登陆名：${user.username}</p>
 						<p>您的邮箱：${user.email}</p>
+						<c:if test="${user.roleid==1}">
+							<p>管理员</p>
+						</c:if>
 					  </div>
 					</div>
 				</div>

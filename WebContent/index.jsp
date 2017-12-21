@@ -9,7 +9,7 @@
 <title>index.jsp</title>
 <script>
 window.onload = function(){ //设置当页面加载时执行
-window.location ="${APP_PATH }/selectAllBlog" //确定的话游览器自身跳转
+window.location ="${APP_PATH }/blogindex.jsp" //确定的话游览器自身跳转
 }
 </script>
 </head>

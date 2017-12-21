@@ -10,6 +10,7 @@
 						<tr>
 							<th>#</th>
 							<th>姓名</th>
+							<th>权限/分组</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -19,6 +20,14 @@
 								<tr>  
 			                        <td>${user.id}</td>  
 			                        <td>${user.username}</td>
+			                        <td>
+			                        	<c:if test="${user.roleid==1}">
+			                        		管理员
+			                        	</c:if>
+			                        	<c:if test="${user.roleid==2}">
+			                        		用户
+			                        	</c:if>
+			                        </td>
 			                        <td>
 				                        <shiro:hasRole name="admin">
 				                        <div class="btn-group">

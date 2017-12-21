@@ -14,40 +14,15 @@
 		<script type="text/javascript" src="${APP_PATH }/static/js/top.js"></script>
 		<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.8.0/jquery.js"></script> 
 		<script type="text/javascript">
-jQuery(document).ready(function($) {
-    $.fn.smartFloat = function() {
-        var position = function(element) {
-            var top = element.position().top,
-            pos = element.css("position");
-            $(window).scroll(function() {
-                var scrolls = $(this).scrollTop();
-                if (scrolls > top) {
-                    if (window.XMLHttpRequest) {
-                        element.css({
-                            position: "fixed",
-                            top:0
-                            
-                        });
-                    } else {
-                        element.css({
-                            top: scrolls
-                        });
-                    }
-                } else {
-                    element.css({
-                        position: "absolute",
-                        top: top
-                    });
-                }
-            });
-        };
-        return $(this).each(function() {
-            position($(this));
-        });
-    };
-    //绑定,将引号中的内容替换成你想要下拉的模块的ID或者CLASS名字,如"#ABC",".ABC"
-    $("#author").smartFloat();
-});
+		$(function() {
+		    var elm = $('#author');
+		    var startPos = $(elm).offset().top;
+		    $.event.add(window, "scroll", function() {
+		        var p = $(window).scrollTop();
+		        $(elm).css('position',((p) > startPos) ? 'fixed' : 'static');
+		        $(elm).css('top',((p) > startPos) ? '1em' : '');
+		    });
+		});
 		</script>
 	</head>
 	<body>
@@ -76,28 +51,15 @@ jQuery(document).ready(function($) {
 				<div class="clear"></div>
 				<div class="main"><!--文章列表-->
 					<article>
-						<section>
 						<header class="crumbs">New Post 最新文章</header>
-						<c:forEach items="${pageInfo.list }" var="blogs">
-						<ul>
-							<li class="main-item-left"></li>
-							<li class="main-item-1"><a href="selectBlogById?id=<c:out value="${blogs.blogid}"/>"><c:out value="${blogs.blogtitle}"/></a></li>
-							<li class="main-item-2">发布时间：<c:out value="${blogs.time}"/><span class="pid">ID：<c:out value="${blogs.blogid}"/></span></li>
-							<!-- <li class="main-item-3"><c:out value="${blogs.article}"/></li> -->
-							<li class="main-item-4"><a href="selectBlogById?blogid=<c:out value="${blogs.blogid}"/>"><i>阅读全文</i></a></li>
-							<div class="clear"></div>	
-							<li class="main-item-left"></li>
-						</ul>
-						</c:forEach>
+						<section id="pageInfo">
 						</section>
 					</article>
 					<aside>
 						<section>
 							<header class="aside-title">Links</header>
-							<ul>
-							<c:forEach items="${linkInfo}" var="links">
-								<li class="aside-tag"><a href='<c:out value="${links.linkurl}"></c:out>' target="_blank"><c:out value="${links.linkname}"></c:out></a></li>
-							</c:forEach>
+							<ul id="links">
+								
 							</ul>
 						</section>
 						<div class="clear"></div>
@@ -118,11 +80,73 @@ jQuery(document).ready(function($) {
 			</div>
 			<div class="clear"></div>
 			<nav class="navigator">
-				<c:if test="${pageInfo.hasPreviousPage}">
-					<a href="${APP_PATH }/selectAllBlog?pn=${pageInfo.pageNum-1}">Previous page</a>
-				</c:if>
-				<c:if test="${pageInfo.hasNextPage}">
-					<a href="${APP_PATH }/selectAllBlog?pn=${pageInfo.pageNum+1}">Next page</a>
-				</c:if>
 			</nav>
 <%@include file="footer.jsp" %>
+<script>
+	$(document).ready(function(){
+			to_page(1);
+			function to_page(pn){
+				$.ajax({
+					url:"${APP_PATH }/selectAllBlog",
+					data:{"pn":pn},
+					type:"POST",
+					success:function(data){
+                    	articleInfo(data);
+						navsInfo(data);
+						linksInfo(data);
+                    }
+				})
+			}
+			//显示文章
+			function articleInfo(data){
+				$("#pageInfo").empty();
+				var articles = data.page.list;
+				var html = '';
+				$.each(articles,function(i,val){
+					html +=
+					'<ul>'+
+						'<li class="main-item-left"></li>'+
+						'<li class="main-item-1"><a href="selectBlogById?id='+val.blogid+'">'+val.blogtitle+'</a></li>'+
+						'<li class="main-item-2">发布时间：'+val.time+'<span class="pid">ID：'+val.blogid+'</span></li>'+
+						'<li class="main-item-4"><a href="selectBlogById?blogid='+val.blogid+'"><i>阅读全文</i></a></li>'+
+						'<div class="clear"></div>'+
+						'<li class="main-item-left"></li>'+
+					'</ul>';
+				});
+				$("#pageInfo").append(html);
+			}
+			//分页
+			function navsInfo(data){
+				$(".navigator").empty();
+				var navInfo = data.page;
+				if(navInfo.hasPreviousPage){
+					var prePageLi = $("<a></a>").append("Previous page");
+					prePageLi.click(function(){
+						to_page(navInfo.pageNum-1);
+					});
+				}
+				if(navInfo.hasNextPage){
+					var nextPageLi = $("<a></a>").append("Next page");
+					nextPageLi.click(function(){
+						to_page(navInfo.pageNum+1);
+					});
+				}
+				$(".navigator").append(prePageLi).append(nextPageLi);	
+			}
+			//友情链接
+			function linksInfo(data){
+				$("#links").empty();
+				var links = data.links;
+				var html = "";
+				$.each(links,function(i,val){
+					html +=
+						'<li class="aside-tag">'+
+						'<a href="'+val.linkurl+'" target="_blank">'+val.linkname+'</a>'+
+						'</li>';
+				});
+				$("#links").append(html);		
+			}
+		}
+		);
+	
+</script>
