@@ -3,26 +3,19 @@ package com.blog.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.blog.model.Blog;
-import com.blog.model.Diary;
-import com.blog.model.Link;
 import com.blog.service.BlogService;
-import com.blog.service.DiaryService;
-import com.blog.service.LinkService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -34,8 +27,6 @@ import com.github.pagehelper.PageInfo;
 public class BlogController {
 	@Autowired
 	BlogService blogService;
-	@Autowired
-	LinkService linkService;
 		
 		/**
 		 * 存储博客信息
@@ -54,27 +45,47 @@ public class BlogController {
 					attributes.addFlashAttribute("msg", "添加文章成功");
 					return "redirect:/admin/adminblog";
 		}
-		
 		/**
-		 * 查找全博客，用于主页显示
+		 * 默认显示第一页..
 		 * @param pn
+		 * @param model
 		 * @return
 		 */
-		@ResponseBody
-		@RequestMapping("/selectAllBlog")
-		public Map selectAllBlog2(
-				@RequestParam(value="pn",defaultValue="1") int pn
+		@RequestMapping("/page")
+		public String index(
+				@RequestParam(value="pageNum",defaultValue="1")Integer pageNum,
+				Model model
 				){
 			try {
-				PageHelper.startPage(pn, 8);
+				PageHelper.startPage(pageNum, 8);
 				PageHelper.orderBy("blogid desc");//设置为倒叙
 				List<Blog> blogs =blogService.selectAllBlog();
 				PageInfo page = new PageInfo(blogs);
-				List<Link> links = linkService.findAll();
-				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("links", links);
-				map.put("page", page);
-				return map;
+				model.addAttribute("pageInfo", page);
+				return "blogindex";
+			} catch (Exception e) {
+				System.out.println(e);
+				return null;
+			}
+		}
+		/**
+		 * 查找全博客，用于主页显示
+		 * @param pageNum
+		 * @param model
+		 * @return
+		 */
+		@RequestMapping("/page/{pageNum}")
+		public String index2(
+				@PathVariable("pageNum") Integer pageNum,
+				Model model
+				){
+			try {
+				PageHelper.startPage(pageNum,8);
+				PageHelper.orderBy("blogid desc");//设置为倒叙
+				List<Blog> blogs =blogService.selectAllBlog();
+				PageInfo page = new PageInfo(blogs);
+				model.addAttribute("pageInfo", page);
+				return "../blogindex";
 			} catch (Exception e) {
 				System.out.println(e);
 				return null;

@@ -51,15 +51,31 @@
 				<div class="clear"></div>
 				<div class="main"><!--文章列表-->
 					<article>
+						<section>
 						<header class="crumbs">New Post 最新文章</header>
-						<section id="pageInfo">
+						<c:forEach items="${pageInfo.list }" var="blogs">
+						<ul>
+							<li class="main-item-left"></li>
+							<li class="main-item-1"><a href="${APP_PATH }/selectBlogById?id=<c:out value="${blogs.blogid}"/>"><c:out value="${blogs.blogtitle}"/></a></li>
+							<li class="main-item-2">发布时间：<c:out value="${blogs.time}"/><span class="pid">ID：<c:out value="${blogs.blogid}"/></span></li>
+							<!-- <li class="main-item-3"><c:out value="${blogs.article}"/></li> -->
+							<li class="main-item-4"><a href="${APP_PATH }selectBlogById?blogid=<c:out value="${blogs.blogid}"/>"><i>阅读全文</i></a></li>
+							<div class="clear"></div>	
+							<li class="main-item-left"></li>
+						</ul>
+						</c:forEach>
 						</section>
 					</article>
 					<aside>
 						<section>
 							<header class="aside-title">Links</header>
 							<ul id="links">
-								
+							<!-- 
+							<c:forEach items="${linkInfo}" var="links">
+								<li class="aside-tag"><a href='<c:out value="${links.linkurl}"></c:out>' target="_blank"><c:out value="${links.linkname}"></c:out></a></li>
+							</c:forEach>
+							 -->
+							 
 							</ul>
 						</section>
 						<div class="clear"></div>
@@ -80,73 +96,40 @@
 			</div>
 			<div class="clear"></div>
 			<nav class="navigator">
+				<c:if test="${pageInfo.hasPreviousPage}">
+					<a href="${APP_PATH }/page/${pageInfo.pageNum-1}">Previous page</a>
+				</c:if>
+				<c:if test="${pageInfo.hasNextPage}">
+					<a href="${APP_PATH }/page/${pageInfo.pageNum+1}">Next page</a>
+				</c:if>
 			</nav>
 <%@include file="footer.jsp" %>
 <script>
 	$(document).ready(function(){
-			to_page(1);
-			function to_page(pn){
-				$.ajax({
-					url:"${APP_PATH }/selectAllBlog",
-					data:{"pn":pn},
-					type:"POST",
-					success:function(data){
-                    	articleInfo(data);
-						navsInfo(data);
-						linksInfo(data);
-                    }
-				})
-			}
-			//显示文章
-			function articleInfo(data){
-				$("#pageInfo").empty();
-				var articles = data.page.list;
-				var html = '';
-				$.each(articles,function(i,val){
-					html +=
-					'<ul>'+
-						'<li class="main-item-left"></li>'+
-						'<li class="main-item-1"><a href="selectBlogById?id='+val.blogid+'">'+val.blogtitle+'</a></li>'+
-						'<li class="main-item-2">发布时间：'+val.time+'<span class="pid">ID：'+val.blogid+'</span></li>'+
-						'<li class="main-item-4"><a href="selectBlogById?blogid='+val.blogid+'"><i>阅读全文</i></a></li>'+
-						'<div class="clear"></div>'+
-						'<li class="main-item-left"></li>'+
-					'</ul>';
-				});
-				$("#pageInfo").append(html);
-			}
-			//分页
-			function navsInfo(data){
-				$(".navigator").empty();
-				var navInfo = data.page;
-				if(navInfo.hasPreviousPage){
-					var prePageLi = $("<a></a>").append("Previous page");
-					prePageLi.click(function(){
-						to_page(navInfo.pageNum-1);
-					});
+		getIndexLink();
+		function getIndexLink(){
+			$.ajax({
+				url:"${APP_PATH }/getIndexLink",
+				type:"POST",
+				success:function(data){
+					linksInfo(data);
 				}
-				if(navInfo.hasNextPage){
-					var nextPageLi = $("<a></a>").append("Next page");
-					nextPageLi.click(function(){
-						to_page(navInfo.pageNum+1);
-					});
-				}
-				$(".navigator").append(prePageLi).append(nextPageLi);	
-			}
-			//友情链接
-			function linksInfo(data){
-				$("#links").empty();
-				var links = data.links;
-				var html = "";
-				$.each(links,function(i,val){
-					html +=
-						'<li class="aside-tag">'+
-						'<a href="'+val.linkurl+'" target="_blank">'+val.linkname+'</a>'+
-						'</li>';
-				});
-				$("#links").append(html);		
-			}
+			});
 		}
-		);
+		function linksInfo(data){
+			<!--
+			var obj = $.parseJSON(data);
+			-->
+			var links = data.links;
+			var html = "";
+			$.each(links,function(i,val){
+				html +=
+					'<li class="aside-tag">'+
+					'<a href="'+val.linkurl+'" target="_blank">'+val.linkname+'</a>'+
+					'</li>';
+			});
+			$("#links").append(html);
+		}
+	});
 	
 </script>
