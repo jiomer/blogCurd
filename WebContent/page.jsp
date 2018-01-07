@@ -44,7 +44,7 @@
 						<time>发布于:<c:out value="${blog.time}" /></time>- 
 						<c:out value="${blog.blogid}" /> 次检阅
 						<shiro:hasRole name="admin">
-							<a href="http://127.0.0.1:8080/Blog/admin/getBlog?id=<c:out value="${blog.blogid}" />">编辑</a>
+							<a href="${APP_PATH }/admin/getBlog?id=<c:out value="${blog.blogid}" />">编辑</a>
 						</shiro:hasRole>
 					</div>
 				<article class="single">

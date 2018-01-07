@@ -11,6 +11,7 @@
 							<th>#</th>
 							<th>姓名</th>
 							<th>权限/分组</th>
+							<th>用户状态</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -26,6 +27,14 @@
 			                        	</c:if>
 			                        	<c:if test="${user.roleid==2}">
 			                        		用户
+			                        	</c:if>
+			                        </td>
+			                        <td>
+			                        	<c:if test="${user.state==0}">
+			                        		用户账号未激活
+			                        	</c:if>
+			                        	<c:if test="${user.state==1}">
+			                        		用户账号已激活
 			                        	</c:if>
 			                        </td>
 			                        <td>

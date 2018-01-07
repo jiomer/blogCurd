@@ -136,6 +136,7 @@ public class UserController {
 			}
 		}else{
 			model.addAttribute("msg", "’À∫≈Œ¥º§ªÓ");
+			model.addAttribute("user",user);
 			return "login";
 		}
 	}

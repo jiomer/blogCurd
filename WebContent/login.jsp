@@ -31,19 +31,43 @@
                 <div class="admin-button"><a id="login-button" href="${APP_PATH}">返回首页</a></div>
             </form>
         </div>
-        <h1 class="admin-login-tittle">${msg}</h1>
+        <h1 class="admin-login-tittle">
+        	${msg}
+        	<c:if test="${user.state==0}">
+        		<a href="javascript:setReEmail(${user.id});">重新发送邮件激活</a>
+        	</c:if>
+        </h1>
     </div>
 
 </div>
 
 <script type="text/javascript">
+	//login-button的点击事件..
     $('#login-button').click(function(event){
         event.preventDefault();
         $('form').fadeOut(500);
         $('.wrapper').addClass('form-success');
         $('.form').submit();
     });
+    //重新发送激活邮件!
+    function setReEmail(id){
+    	var html = "";
+    	$("#setReMsg").empty();
+    	$.post(
+    			"${APP_PATH}/setReEmail",
+    			{id:id},
+    			function(data){
+    				var obj =$.parseJSON(data);
+    				if(obj.success){
+    					html ="邮件已发送，请到邮箱查收..."; 
+    					$("#setReMsg").append(html);
+    				}else{
+    					html ="邮件发送失败，请到联想管理员邮箱..."; 
+    					$("#setReMsg").append(html);
+    				}
+    			}
+    		)
+    }
 </script>
-
 </body>
 </html>

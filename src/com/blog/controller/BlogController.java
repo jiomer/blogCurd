@@ -1,8 +1,7 @@
 package com.blog.controller;
 
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.blog.model.Blog;
 import com.blog.service.BlogService;
+import com.blog.util.Functions;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -35,11 +36,7 @@ public class BlogController {
 		 */
 		@RequestMapping("/admin/writeBlog")
 		public String writeBlog(Blog blog,RedirectAttributes attributes){
-					//获取当前日期
-					Date currentTime = new Date();
-				 	//将日期转化为指定格式
-					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-					String dateString = formatter.format(currentTime);
+					String dateString = Functions.getNowTime();
 					blog.setTime(dateString);
 					this.blogService.writeBlog(blog);
 					attributes.addFlashAttribute("msg", "添加文章成功");

@@ -59,7 +59,7 @@
 							<li class="main-item-1"><a href="${APP_PATH }/selectBlogById?id=<c:out value="${blogs.blogid}"/>"><c:out value="${blogs.blogtitle}"/></a></li>
 							<li class="main-item-2">发布时间：<c:out value="${blogs.time}"/><span class="pid">ID：<c:out value="${blogs.blogid}"/></span></li>
 							<!-- <li class="main-item-3"><c:out value="${blogs.article}"/></li> -->
-							<li class="main-item-4"><a href="${APP_PATH }selectBlogById?blogid=<c:out value="${blogs.blogid}"/>"><i>阅读全文</i></a></li>
+							<li class="main-item-4"><a href="${APP_PATH }/selectBlogById?id=<c:out value="${blogs.blogid}"/>"><i>阅读全文</i></a></li>
 							<div class="clear"></div>	
 							<li class="main-item-left"></li>
 						</ul>
@@ -75,7 +75,6 @@
 								<li class="aside-tag"><a href='<c:out value="${links.linkurl}"></c:out>' target="_blank"><c:out value="${links.linkname}"></c:out></a></li>
 							</c:forEach>
 							 -->
-							 
 							</ul>
 						</section>
 						<div class="clear"></div>
@@ -131,5 +130,4 @@
 			$("#links").append(html);
 		}
 	});
-	
 </script>

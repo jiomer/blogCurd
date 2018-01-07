@@ -1,8 +1,7 @@
 package com.blog.controller;
 
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blog.model.Diary;
 import com.blog.service.DiaryService;
+import com.blog.util.Functions;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -31,9 +31,7 @@ public class DiaryController {
 	 */
 	@RequestMapping("/admin/writediary")
 	public String writediary(Diary diary,RedirectAttributes attributes){
-		Date currentTime = new Date();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String dateString = formatter.format(currentTime);
+		String dateString = Functions.getNowTime();
 		diary.setTime(dateString);
 		this.diaryService.writediary(diary);
 		attributes.addFlashAttribute("msg", "添加日记成功");
